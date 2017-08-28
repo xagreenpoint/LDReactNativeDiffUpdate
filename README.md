@@ -43,8 +43,13 @@ NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 
 
 #### android安装增量更新
+工程根目录执行：
+
+`npm install --save react-native-diff-update-android`
+`react-native link react-native-diff-update-android`
 
 #### android相关配置
+`在应用启动时启动RnModuleDiffUpdateService这个service,当应用关闭时请停止此service`
 
 ## 接口说明
 
