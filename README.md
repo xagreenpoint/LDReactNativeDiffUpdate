@@ -16,7 +16,8 @@ React native增量更新，支持多入口多业务。
 工程根目录执行：
 
 `npm install --save react-native-diff-update`
-`react-native link react-native-DebugServerHost`
+
+`react-native link react-native-diff-update`
 
 打开工程可以看到`LLibraries`下`LDRNDiffUpdate`就是增量更新模块。
 
@@ -46,6 +47,7 @@ NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 工程根目录执行：
 
 `npm install --save react-native-diff-update-android`
+
 `react-native link react-native-diff-update-android`
 
 #### android相关配置
