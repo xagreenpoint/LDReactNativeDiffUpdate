@@ -29,13 +29,13 @@ React native增量更新，支持多入口多业务。
 首先进行相关配置，配置信息在`LDRNBundleList.m`文件中，核心设置有：
 
 ```json
-appKey				    //应用唯一标识
-rnVersion 				//当前工程使用的React Native版本
-originBundles 			    //工程内置的业务bundle
-originBundlesHash		    //业务bundle的md5 (可选)
-entryJSName				//bundle入口文件名称
-patchFileName			    //补丁bundle入口文件名称
-versionUrl				//版本请求接口地址
+appKey                  //应用唯一标识
+rnVersion               //当前工程使用的React Native版本
+originBundles           //工程内置的业务bundle
+originBundlesHash       //业务bundle的md5 (可选)
+entryJSName             //bundle入口文件名称
+patchFileName           //补丁bundle入口文件名称
+versionUrl              //版本请求接口地址
 ```
 
 配置好信息后，在自己的需要加载bundle的`viewController`中引入头文件`#import "LDRNDiffUpdate.h"`，然后指定jsBundle文件名即可（每个jsBundle代表一个独立的业务）：
@@ -44,7 +44,7 @@ versionUrl				//版本请求接口地址
 NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 ```
 
-#### android相关方式
+#### android使用方式
 
 在应用启动时启动RnModuleDiffUpdateService这个service,当应用关闭时请停止此service。
 
@@ -103,7 +103,7 @@ resBody: {
 
 2. jsBundle篡改安全。为防止篡改js入侵app业务，需对jsBundle做签名校验，一是下载文件后校验其完整性，二是每次加载jsBundle时校验，这样就防止了整条链路篡改风险。
 
-3. jsBundle业务安全。因为jsBundle是明文，所以业务中需要进行加解密等敏感措施就不能在js侧实现，解决的办法是native实现加解密暴露给js接口调用。
+3. jsBundle业务安全。因为jsBundle是明文，所以业务中需要进行加解密等敏感措施就不能在js侧实现，解决的办法是native实现加解密暴露给js接口调用。加解密可作为RN独立module实现，不在增量更新体现。
 
 
 
