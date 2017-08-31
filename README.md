@@ -67,7 +67,7 @@ resBody: {
     } 
 }
 
-相应body:
+响应body:
 
 ```json
 {
