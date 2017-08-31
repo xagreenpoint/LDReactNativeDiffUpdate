@@ -30,12 +30,12 @@ React native增量更新，支持多入口多业务。
 
 ```json
 appKey				    //应用唯一标识
-rnVersion 				//当前工程使用的React Native版本
+rnVersion 			//当前工程使用的React Native版本
 originBundles 			    //工程内置的业务bundle
 originBundlesHash		    //业务bundle的md5 (可选)
-entryJSName				//bundle入口文件名称
+entryJSName			//bundle入口文件名称
 patchFileName			    //补丁bundle入口文件名称
-versionUrl				//版本请求接口地址
+versionUrl			//版本请求接口地址
 ```
 
 配置好信息后，在自己的需要加载bundle的`viewController`中引入头文件`#import "LDRNDiffUpdate.h"`，然后指定jsBundle文件名即可（每个jsBundle代表一个独立的业务）：
