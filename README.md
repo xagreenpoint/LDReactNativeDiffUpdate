@@ -60,6 +60,7 @@ NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 appKey: "",                   //app唯一标识
 appVersion: "",               //app当前版本
 rnVersion: "",                //react native集成版本
+platform: "",                 //平台ios android
 resBody: { 
         "LDBizName1": "1.2",  //业务名称: 版本号
         "LDBizName2": "1.1", 
