@@ -62,9 +62,9 @@ appVersion: "",               //app当前版本
 rnVersion: "",                //react native集成版本
 platform: "",                 //平台ios android
 resBody: { 
-        "LDBizName1": "1.2",  //业务名称: 版本号
-        "LDBizName2": "1.1", 
-        ......
+        "LDBizName1": "1.2.0",  //业务名称: 版本号
+        "LDBizName2": "1.1.0", 
+        ...
     } 
 }
 
@@ -77,17 +77,18 @@ resBody: {
     rspBody: {
         patchs:[   
             { 
+                "loadType": "ReactNative",                                       //业务类型：ReactNative、HybridApp
                 "zipPath": "https://xx.xx.com/patchzip/LDBizModuleName1.zip",   //下载路径
-                "version": "1.3",                                               //业务版本号
+                "version": "1.3.0",                                               //业务版本号
                 "moduleName": "LDBizName1",                                     //jsBundle名称
                 "zipHash": "xxxxxx",                                            //zip文件md5值
                 "jsbundleHash": "xxxxxx",                                       //差异合并后js文件md5值
                 "downloadNow": "3",                                             //0：总是下载, 1:wifi下载，2: 4g和wifi下载
-                "uploadNow": "true",                                            //true:即刻更新，false:下次启动更新
+                "loadNow": "true",                                              //true:即刻更新，false:下次启动更新
                 "needGoBack": "false",                                          //是否需要回退版本
             },
 
-            ......        
+            ...
           ]
     }
 }
