@@ -47,6 +47,27 @@ NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 
 `npm install --save react-native-diff-update-android`
 `react-native link react-native-diff-update-android`
+### Android有时候会link不成功，这时可通过手动配置；
+
+#### 找到 android/settings.gradle文件并添加:
+```javascript
+include ':react-native-diff-update'
+project(':react-native-diff-update').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-diff-update/android')
+```
+#### 找到 android/app/build.gradle 文件并添加:
+```javascript
+dependencies {
+compile project(':react-native-diff-update')
+```
+#### 在程序启动时调用：
+
+         LeadeonDiff.startDiff(this);
+#### 在程序退出时调用  
+
+         LeadeonDiff.stopDiff(this);
+         
+#### 注意：this指的是Android中的Context。
+
 
 #### android相关配置
 `在应用启动时启动RnModuleDiffUpdateService这个service,当应用关闭时请停止此service`
