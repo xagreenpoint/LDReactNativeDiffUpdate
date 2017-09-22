@@ -26,7 +26,12 @@ React native增量更新，支持多入口多业务。
 ##### iOS Pod集成方式：
 
 `npm install --save react-native-diff-update`
+
+在工程`Podfile`文件中加入：
+
 `pod 'LDRNDiffUpdate', :path => '../node_modules/react-native-diff-update'`
+
+然后执行：`pod install`
 
 #### iOS使用方式
 
