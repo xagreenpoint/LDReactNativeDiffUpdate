@@ -23,6 +23,10 @@ React native增量更新，支持多入口多业务。
 
 打开工程可以看到`Libraries`下`LDRNDiffUpdate`就是增量更新模块。
 
+##### iOS Pod集成方式：
+
+`npm install --save react-native-diff-update`
+`pod 'LDRNDiffUpdate', :path => '../node_modules/react-native-diff-update'`
 
 #### iOS使用方式
 
