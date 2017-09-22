@@ -33,6 +33,16 @@ React native增量更新，支持多入口多业务。
 
 然后执行：`pod install`
 
+##### SSZipArchive库冲突问题
+
+假如原有工程已经存在SSZipArchive库，与本pod spec冲突，建议采用`v1.0.5`版本，此版本没有将SSZipArchive进行分离，因此更容易处理冲突问题，install时增加版本号：
+
+`npm install --save react-native-diff-update@v1.0.5`
+
+这样集成到工程中时，只需要把原有工程SSZipArchive删除即可。至于SSZipArchive工程分离方式，目前没有找到比较好的方法，可以参见`code push`的处理方式也是这样。
+
+<https://github.com/Microsoft/react-native-code-push/issues/241>
+
 #### iOS使用方式
 
 首先进行相关配置，配置信息在`LDRNBundleList.m`文件中，核心设置有：

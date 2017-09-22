@@ -28,11 +28,11 @@ Pod::Spec.new do |s|
 
   s.library        = 'z', 'bz2'
   s.dependency 'React'
-  #s.dependency 'SSZipArchive'
+  s.dependency 'SSZipArchive'
 
 
-  s.source_files = 'ios/LDRNDiffUpdate/*.{h,m}', 'ios/LDRNDiffUpdate/bzip/*.{h,c}', 'ios/LDRNDiffUpdate/md5/*.{h,m}','ios/LDRNDiffUpdate/SSZipArchive/*.{h,m}', 'ios/LDRNDiffUpdate/SSZipArchive/aes/*.{h,c}', 'ios/LDRNDiffUpdate/SSZipArchive/minizip/*.{h,c}'
-  s.public_header_files = ['ios/LDRNDiffUpdate/LDRNDiffUpdate.h', 'ios/LDRNDiffUpdate/SSZipArchive/SSZipArchive.h', 'ios/LDRNDiffUpdate/SSZipArchive/Common.h']
+  s.source_files = 'ios/LDRNDiffUpdate/*.{h,m}', 'ios/LDRNDiffUpdate/bzip/*.{h,c}', 'ios/LDRNDiffUpdate/md5/*.{h,m}'
+  s.public_header_files = ['ios/LDRNDiffUpdate/LDRNDiffUpdate.h']
 
   # s.subspec 'Core' do |core|
   #   core.source_files = 'ios/LDRNDiffUpdate/*.{h,m}'
