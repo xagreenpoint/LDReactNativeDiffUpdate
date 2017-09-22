@@ -45,8 +45,24 @@ NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 ```
 
 #### android使用方式
+##### 在Android中有时候npm 的link会不成功，这时可通过如下步骤进行配置：
+##### 找到 android/settings.gradle文件并添加:
+```
+include ':react-native-diff-update'
+project(':react-native-diff-update').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-diff-update/android')
+```
+##### 找到 android/app/build.gradle 文件并添加:
+```
+dependencies {
+compile project(':react-native-diff-update')
+```
+##### 配置完后需要在应用启动的第一个Activity的onCreate方法中调用
+         LeadeonDiff.startDiff(this);
+##### 在程序退出时调用  
+         LeadeonDiff.stopDiff(this);
+##### 注意：this指的是Android中的Context。
 
-在应用启动时启动RnModuleDiffUpdateService这个service,当应用关闭时请停止此service。
+
 
 ## 版本请求接口说明
 
