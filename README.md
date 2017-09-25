@@ -1,7 +1,7 @@
 # LDReactNativeDiffUpdate
 React native增量更新，支持多入口多业务。
 
-* QQ交流群：**539533937**  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=310cb3000d666c23a0f3757a9d2a3548f0a83aecf2121a214790f96718f07157"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="ReactNative热更新" title="ReactNative热更新"></a> 
+* QQ交流群：**539533937**  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=310cb3000d666c23a0f3757a9d2a3548f0a83aecf2121a214790f96718f07157"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="ReactNative热更新" title="ReactNative热更新"></a> 
 
 
 ![](./doc/image/ReactNativeDiffUpdate.png)
