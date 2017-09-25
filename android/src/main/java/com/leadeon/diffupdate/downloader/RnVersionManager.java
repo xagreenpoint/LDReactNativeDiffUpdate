@@ -43,6 +43,12 @@ public class RnVersionManager {
         saveRn(RN_VERSION_KEY, oldHashTable);
     }
 
+    /**
+     * 用于清空rn模块的版本信息
+     */
+    public void deleteRnDescription(){
+        saveRn(RN_VERSION_KEY, new Hashtable<String, RnCheckRes>());
+    }
 
     public synchronized Hashtable<String, RnCheckRes> getRnDescription() {
         return readRn(RN_VERSION_KEY);
