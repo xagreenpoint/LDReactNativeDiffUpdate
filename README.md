@@ -1,6 +1,10 @@
 # LDReactNativeDiffUpdate
 React native增量更新，支持多入口多业务。
 
+#### 开源的目的
+
+目前业界还没有一款足够适应大部分增量更新场景的方案，要么不支持多业务入口，要么没有开源，要么没有开放后台源码。基于这些需求，我们想通过开源社区的力量，大家一起打造出比较完善易用的增量更新框架，因此，需要大家的参与及支持，为RN的生态系统做点儿小贡献。
+
 * QQ交流群：**539533937**  <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=310cb3000d666c23a0f3757a9d2a3548f0a83aecf2121a214790f96718f07157"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="ReactNative热更新" title="ReactNative热更新"></a> 
 
 
