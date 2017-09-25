@@ -68,7 +68,7 @@ public class FileUtil {
 
 
     public static synchronized void unZipAll(String zipFile, String aimdir) {
-        File tempDir=new File(aimdir);
+        File tempDir = new File(aimdir);
         if (!tempDir.exists()) {
             tempDir.mkdirs();
         }
@@ -147,7 +147,7 @@ public class FileUtil {
     }
 
     public static synchronized void unZipRes(String zipFile, String aimdir) {
-        File tempDir=new File(aimdir);
+        File tempDir = new File(aimdir);
         if (!tempDir.exists()) {
             tempDir.mkdirs();
         }
@@ -233,7 +233,7 @@ public class FileUtil {
     }
 
     public static synchronized void unZipPatch(String apkFile, String aimdir) {
-        File tempDir=new File(aimdir);
+        File tempDir = new File(aimdir);
         if (!tempDir.exists()) {
             tempDir.mkdirs();
         }
@@ -331,7 +331,28 @@ public class FileUtil {
 
 
     /**
-     *  向文本文件中写入文本
+     * 从文本文件中读取文本
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
+    public static String readFile(InputStream inputStream) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+        InputStreamReader inStreamReader = new InputStreamReader(inputStream);
+        BufferedReader reader = new BufferedReader(inStreamReader);
+        String line;
+        while ((line = reader.readLine()) != null) {
+            contentBuilder.append(line);
+        }
+        reader.close();
+        inStreamReader.close();
+        return contentBuilder.toString().trim();
+    }
+
+    /**
+     * 向文本文件中写入文本
+     *
      * @param path
      * @return
      * @throws IOException
@@ -356,11 +377,12 @@ public class FileUtil {
 
     /**
      * 递归删除文件及文件夹
+     *
      * @param path
      * @return
      */
     public static boolean deleteAll(String path) {
-        File file=new File(path);
+        File file = new File(path);
         if (file.isDirectory()) {
             File[] childFiles = file.listFiles();
             if (childFiles != null && childFiles.length > 0) {
