@@ -30,11 +30,14 @@ public class RnModuleDiffUpdateService extends Service {
             switch (msg.what) {
                 case 1:   //表示首次的资源复制已经完成
                     LogUtils.writeLog("首次的资源复制已经完成");
-                    UnzipFile();
+                    UnzipRes();
                     break;
                 case 2:  //表示下载后的资源已经解压和复制
                     LogUtils.writeLog("表示下载后的资源已经解压和复制");
                     checkVersion();
+                    break;
+                case 3:    //此处表示zip已下载，jsbundle也已经合并
+                    stopSelf();
                     break;
 
             }
@@ -50,9 +53,10 @@ public class RnModuleDiffUpdateService extends Service {
 
 
     /**
-     * 开始解压上次下载的patch文件
+     * 开始解压上次下载的zip中的资源
+     * 并且复制上次合并后的jsbundle文件
      */
-    private void UnzipFile() {
+    private void UnzipRes() {
         new MergeLastDownedFile(this).start(this.handler);
     }
 
@@ -60,12 +64,12 @@ public class RnModuleDiffUpdateService extends Service {
      * 开始版本检测
      */
     private void checkVersion() {
-        //返回了结果之后
-        List<RnCheckRes> ls = new ArrayList<>();
 
         RnVersionManager rnVersionManager = new RnVersionManager(this);
         HashMap<String, String> versions = rnVersionManager.getRnVersion();
 
+        //返回了结果之后
+        List<RnCheckRes> ls = new ArrayList<>();
         LogUtils.writeLog("版本检测数据结果" + JSON.toJSONString(versions));
         if (versions.get("updataDemo").equals("1.0.0")) {
             RnCheckRes rnCheckRes = new RnCheckRes();
@@ -76,7 +80,7 @@ public class RnModuleDiffUpdateService extends Service {
             rnCheckRes.setZipPath("http://192.168.10.221:8080/test/updataDemo.zip");
             ls.add(rnCheckRes);
         }
-        new RnModuleDownloader(this).startDown(ls);
+        new RnModuleDownloader(this).startDown(ls,this.handler);
     }
 
 

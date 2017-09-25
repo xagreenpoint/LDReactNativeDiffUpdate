@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 此类主要用于解压和复制上次下载的
+ * 此类主要用于解压上次下载的
  * zip文件
+ * 复制上次合并的jsbundle文件
  * Created by Lynn on 2017/8/17.
  */
 
@@ -44,7 +45,6 @@ public class MergeLastDownedFile {
                 if (listMoudleName.size() == 0) {
                     handler.sendEmptyMessage(2);  //表示完成了解压和复制
                     LogUtils.writeLog("解压和复制bundle总耗时为：  没有可解压和复制的文件");
-                    return;
                 } else {
                     //开启一个线程来进行文件操作
                     start(listMoudleName,handler);
@@ -70,6 +70,11 @@ public class MergeLastDownedFile {
     }
 
 
+    /**
+     * 将patch文件夹下的资源文件解压到index文件夹下
+     * 将merge文件夹下的jsbundle复制到index文件夹下
+     * @param moduleName
+     */
     private void copyAndUnzip(String moduleName) {
         File file = new File(RNFilePathUtils.getBundleMergeFile(this.context, moduleName));
         if (file.exists()) {

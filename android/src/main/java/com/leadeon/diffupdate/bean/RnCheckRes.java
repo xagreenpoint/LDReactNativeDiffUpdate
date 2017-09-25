@@ -7,11 +7,24 @@ import java.io.Serializable;
  */
 
 public class RnCheckRes implements Serializable {
-    private String zipPath = null;
-    private String version = null;
-    private String moduleName = null;
-    private String zipHash = null;
-    private String jsbundleHash = null;
+    private String loadType=null;           //业务类型：ReactNative、HybridApp
+    private String zipPath = null;          //下载路径
+    private String version = null;          //业务版本号
+    private String moduleName = null;       //jsBundle名称
+    private String zipHash = null;          //zip文件md5值
+    private String jsbundleHash = null;     //差异合并后js文件md5值
+    private String downloadNow=null;        //0：总是下载, 1:wifi下载，2: 4g和wifi下载
+    private String loadNow=null;            //true:即刻更新，false:下次启动更新
+    private String needGoBack=null;         //是否需要回退版本
+
+
+    public String getLoadType() {
+        return loadType;
+    }
+
+    public void setLoadType(String loadType) {
+        this.loadType = loadType;
+    }
 
     public String getZipPath() {
         return zipPath;
@@ -51,5 +64,29 @@ public class RnCheckRes implements Serializable {
 
     public void setJsbundleHash(String jsbundleHash) {
         this.jsbundleHash = jsbundleHash;
+    }
+
+    public String getDownloadNow() {
+        return downloadNow;
+    }
+
+    public void setDownloadNow(String downloadNow) {
+        this.downloadNow = downloadNow;
+    }
+
+    public String getLoadNow() {
+        return loadNow;
+    }
+
+    public void setLoadNow(String loadNow) {
+        this.loadNow = loadNow;
+    }
+
+    public String getNeedGoBack() {
+        return needGoBack;
+    }
+
+    public void setNeedGoBack(String needGoBack) {
+        this.needGoBack = needGoBack;
     }
 }

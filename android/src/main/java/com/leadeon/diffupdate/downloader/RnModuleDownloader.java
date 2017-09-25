@@ -1,21 +1,23 @@
 package com.leadeon.diffupdate.downloader;
 
 import android.content.Context;
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.liulishuo.filedownloader.BaseDownloadTask;
-import com.liulishuo.filedownloader.FileDownloadQueueSet;
-import com.liulishuo.filedownloader.FileDownloadSampleListener;
-import com.liulishuo.filedownloader.FileDownloader;
-import com.yyh.lib.bsdiff.PatchUtils;
 import com.leadeon.diffupdate.bean.RnCheckRes;
 import com.leadeon.diffupdate.utils.FileMd5Utils;
 import com.leadeon.diffupdate.utils.FileUtil;
 import com.leadeon.diffupdate.utils.LogUtils;
 import com.leadeon.diffupdate.utils.RNFilePathUtils;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadQueueSet;
+import com.liulishuo.filedownloader.FileDownloadSampleListener;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.yyh.lib.bsdiff.PatchUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,6 +28,7 @@ public class RnModuleDownloader {
 
 
     private Context context = null;
+    private HashMap<String ,Boolean> rnModules=null;
 
     public RnModuleDownloader(Context context) {
         this.context = context.getApplicationContext();
@@ -38,10 +41,14 @@ public class RnModuleDownloader {
      *
      * @param resList
      */
-    public void startDown(List<RnCheckRes> resList) {
+    public void startDown(List<RnCheckRes> resList, final Handler handler) {
         if(resList==null||resList.size()==0){
             LogUtils.writeLog("没有可下载的文件    ");
             return;
+        }
+        this.rnModules=new HashMap<>();
+        for(RnCheckRes rnCheckRes:resList){
+            this.rnModules.put(rnCheckRes.getModuleName(),false);
         }
 
         LogUtils.writeLog("开始执行下载模块的代码");
@@ -49,7 +56,6 @@ public class RnModuleDownloader {
             @Override
             protected void completed(BaseDownloadTask task) {
                 super.completed(task);
-                LogUtils.writeLog("completed 下载完成   thread: "+Thread.currentThread().getName());
             }
 
             @Override
@@ -59,10 +65,30 @@ public class RnModuleDownloader {
                 LogUtils.writeLog("blockComplete 下载完成    本地存储路径为" + path +"   thread: "+Thread.currentThread().getName());
                 RnCheckRes rnCheckRes = ((RnCheckRes) task.getTag());
                 if (FileMd5Utils.MD5File(path).equals(rnCheckRes.getZipHash())) {   //比对zipmd5
-                    unZipPatch(rnCheckRes);
+                    unZipPatchAndMerge(rnCheckRes);
                 } else {        //删除patch文件夹下所有文件
                     LogUtils.writeLog("下载完文件后  进行MD5校验未通过   执行删除操作");
                     FileUtil.deleteAll(RNFilePathUtils.getBundlePatchPath(context, rnCheckRes.getModuleName()));
+                }
+                sendCoplete(rnCheckRes);
+
+            }
+
+            private void sendCoplete(RnCheckRes rnCheckRes){
+                if(rnModules!=null) {
+                    rnModules.remove(rnCheckRes.getModuleName());
+                    if (rnModules.size() == 0) {
+                        handler.sendEmptyMessage(3);
+                    }
+                }
+            }
+
+            @Override
+            protected void error(BaseDownloadTask task, Throwable e) {
+                super.error(task, e);
+                if (rnModules != null) {
+                    RnCheckRes rnCheckRes = ((RnCheckRes) task.getTag());
+                    sendCoplete(rnCheckRes);
                 }
             }
         });
@@ -74,9 +100,9 @@ public class RnModuleDownloader {
                 tasks.add(FileDownloader.getImpl().create(rnCheckRes.getZipPath()).setPath(zipFilePath).setTag(rnCheckRes));
             }
         }
-        queueSet.disableCallbackProgressTimes(); // 由于是队列任务, 这里是我们假设了现在不需要每个任务都回调`FileDownloadListener#progress`, 我们只关系每个任务是否完成, 所以这里这样设置可以很有效的减少ipc.
-        queueSet.setAutoRetryTimes(1);               // 所有任务在下载失败的时候都自动重试一次
-        queueSet.downloadTogether(tasks);              // 并行执行该任务队列
+        queueSet.disableCallbackProgressTimes();     // 由于是队列任务, 这里是我们假设了现在不需要每个任务都回调`FileDownloadListener#progress`, 我们只关系每个任务是否完成, 所以这里这样设置可以很有效的减少ipc.
+        queueSet.setAutoRetryTimes(0);               // 所有任务在下载失败的时候都不进行重试
+        queueSet.downloadTogether(tasks);            // 并行执行该任务队列
         queueSet.start();
     }
 
@@ -86,7 +112,7 @@ public class RnModuleDownloader {
      *
      * @param rnCheckRes
      */
-    private  void unZipPatch(RnCheckRes rnCheckRes) {
+    private  void unZipPatchAndMerge(RnCheckRes rnCheckRes) {
         String moduleName = rnCheckRes.getModuleName();
         String jsbundleMd5 = rnCheckRes.getJsbundleHash();
         FileUtil.unZipPatch(

@@ -1,0 +1,7 @@
+[
+  {
+    "loadType": "ReactNative",                                        //业务类型：ReactNative、HybridApp
+    "version": "1.3.0",                                               //业务版本号
+    "moduleName": "LDBizName1"                                        //jsBundle名称
+  }
+]
