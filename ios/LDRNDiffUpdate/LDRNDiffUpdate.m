@@ -15,39 +15,39 @@
 @implementation LDRNDiffUpdate
 
 +(NSURL *) jsBundleUrl: (NSString *) bundleName {
-  
-  NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-  NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-  
-  NSDictionary *appInfo = [[NSUserDefaults standardUserDefaults] objectForKey: [LDRNBundleList appInfoKey]];
-  if (appInfo == nil || appInfo[@"appVersion"] == nil || ![appInfo[@"appVersion"] isEqualToString: appCurVersion]) {
-
-    //first
-    appInfo = @{
-                @"appVersion": appCurVersion
-                };
-    [[NSUserDefaults standardUserDefaults] setObject:appInfo forKey: [LDRNBundleList appInfoKey]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [LDPatchFileManager clearLDReactNativeCache];
-    [LDPatchFileManager updateReactNativeLocalPath];
-    [LDPatchFileManager copyLDBundleToReactNativePath];
-  } else {
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     
-    //not first
-    [LDPatchFileManager updateReactNativeLocalPath];
-    [LDPatchFileManager reloadAllJSPatch];
-  }
-  
-  NSURL *jslocation = [NSURL fileURLWithPath: [LDPatchFileManager jsbundleLocation: bundleName]];
-  [LDRNVersionManager updateReactNativeBundles];
-  return jslocation;
+    NSDictionary *appInfo = [[NSUserDefaults standardUserDefaults] objectForKey: [LDRNBundleList appInfoKey]];
+    if (appInfo == nil || appInfo[@"appVersion"] == nil || ![appInfo[@"appVersion"] isEqualToString: appCurVersion]) {
+        
+        //first
+        appInfo = @{
+                    @"appVersion": appCurVersion
+                    };
+        [[NSUserDefaults standardUserDefaults] setObject:appInfo forKey: [LDRNBundleList appInfoKey]];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [LDPatchFileManager clearLDReactNativeCache];
+        [LDPatchFileManager updateReactNativeLocalPath];
+        [LDPatchFileManager copyLDBundleToReactNativePath];
+    } else {
+        
+        //not first
+        [LDPatchFileManager updateReactNativeLocalPath];
+        [LDPatchFileManager reloadAllJSPatch];
+    }
+    
+    NSURL *jslocation = [NSURL fileURLWithPath: [LDPatchFileManager jsbundleLocation: bundleName]];
+    [LDRNVersionManager updateReactNativeBundles];
+    return jslocation;
 }
 
 
 +(NSURL *) jsBundleUrlDefault {
-  NSString *commonBundle = @"LDCommon";
-  return [LDRNDiffUpdate jsBundleUrl: commonBundle];
+    NSString *commonBundle = @"LDCommon";
+    return [LDRNDiffUpdate jsBundleUrl: commonBundle];
 }
 
 @end

@@ -124,12 +124,12 @@
 		F19A24EA1F4EC3C80068F74F /* LDRNDiffUpdate */ = {
 			isa = PBXGroup;
 			children = (
-				F19A24F41F4EC4030068F74F /* LDRNVersionManager.m */,
 				F19A24F51F4EC4030068F74F /* LDRNBundleList.h */,
 				F19A24F61F4EC4030068F74F /* LDRNBundleList.m */,
 				F19A24F71F4EC4030068F74F /* LDPatchFileManager.m */,
 				F19A24F81F4EC4030068F74F /* LDPatchFileManager.h */,
 				F19A24F91F4EC4030068F74F /* LDRNVersionManager.h */,
+				F19A24F41F4EC4030068F74F /* LDRNVersionManager.m */,
 				F19A24FA1F4EC4030068F74F /* bzip */,
 				F19A24FD1F4EC4030068F74F /* SSZipArchive */,
 				F19A25221F4EC4030068F74F /* md5 */,
@@ -425,6 +425,7 @@
 				F19A24F31F4EC3C80068F74F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,6 +11,7 @@
 @interface LDPatchFileManager : NSObject
 
 + (void) clearLDReactNativeCache;
++ (void) goBackOriginal: (NSString *) bundleName;
 
 + (void) updateReactNativeLocalPath;
 + (void) copyLDBundleToReactNativePath;
