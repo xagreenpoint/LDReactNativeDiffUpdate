@@ -35,6 +35,7 @@
     } else {
         
         //not first
+        [LDRNVersionManager gobackOriginalIfNeed];
         [LDPatchFileManager updateReactNativeLocalPath];
         [LDPatchFileManager reloadAllJSPatch];
     }
