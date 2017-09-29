@@ -75,20 +75,31 @@ NSURL *jsCodeLocation = [LDRNDiffUpdate jsBundleUrl:@"LDBusinessEntry"];
 ```
 
 #### android使用方式
-##### 在Android中有时候npm 的link会不成功，这时可通过如下步骤进行配置：
-##### 找到 android/settings.gradle文件并添加:
-```
+
+在Android中有时候npm 的link会不成功，这时可通过如下步骤进行配置：
+
+找到 android/settings.gradle文件并添加:
+
+```java
 include ':react-native-diff-update'
 project(':react-native-diff-update').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-diff-update/android')
 ```
-##### 找到 android/app/build.gradle 文件并添加:
-```
+
+找到 android/app/build.gradle 文件并添加:
+
+```java
 dependencies {
-compile project(':react-native-diff-update')
+    compile project(':react-native-diff-update')
+}
 ```
-##### 配置完后需要在应用启动的第一个Activity的onCreate方法中调用
-          LeadeonDiff.init(this, this);
-##### 注意： 第一个参数是应用程序的上下文，不能为null,第二个参数是CopyCompletedCallback接口的实现，当首次复制完assets目录下的rn模块后会回调此接口。
+
+配置完后需要在应用启动的第一个Activity的onCreate方法中调用
+
+```java
+LeadeonDiff.init(this, this);
+```
+
+> 第一个参数是应用程序的上下文，不能为null,第二个参数是CopyCompletedCallback接口的实现，当首次复制完assets目录下的rn模块后会回调此接口。
 
 
 
