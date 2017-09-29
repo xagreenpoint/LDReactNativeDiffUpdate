@@ -57,10 +57,8 @@ dependencies {
 compile project(':react-native-diff-update')
 ```
 ##### 配置完后需要在应用启动的第一个Activity的onCreate方法中调用
-         LeadeonDiff.startDiff(this);
-##### 在程序退出时调用  
-         LeadeonDiff.stopDiff(this);
-##### 注意：this指的是Android中的Context。
+          LeadeonDiff.init(this, this);
+##### 注意： 第一个参数是应用程序的上下文，不能为null,第二个参数是CopyCompletedCallback接口的实现，当首次复制完assets目录下的rn模块后会回调此接口。
 
 
 
