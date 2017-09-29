@@ -1,27 +1,46 @@
 package com.leadeon.diffupdate;
 
 import android.content.Context;
-import android.content.Intent;
 
-import com.leadeon.diffupdate.downloader.RnModuleDiffUpdateService;
+import com.leadeon.diffupdate.downloader.RnModuleDiffUpdateManager;
+import com.leadeon.diffupdate.utils.RNFilePathUtils;
+
+import java.io.File;
 
 /**
  * Created by Lynn on 2017/9/1.
  */
 
 public class LeadeonDiff {
-    public static void startDiff(Context context)  {
+
+
+    /**
+     * 当首次复制assets中的模块完成时会  回调
+     * CopyCompletedCallback 接口，
+     * @param context
+     * @param copyCompletedCallback
+     */
+    public static void init(Context context,CopyCompletedCallback copyCompletedCallback)  {
         if(context!=null){
-            Intent intent=new Intent(context, RnModuleDiffUpdateService.class);
-            context.getApplicationContext().startService(intent);
+           new RnModuleDiffUpdateManager(context,copyCompletedCallback).start();
         }
     }
 
 
-    public static void stopDiff(Context context){
-        if(context!=null){
-            Intent intent=new Intent(context, RnModuleDiffUpdateService.class);
-            context.getApplicationContext().stopService(intent);
+
+    public static String getMoudleJsBundleFile( Context mcontext,String moudleName){
+        File indexFile=new File(RNFilePathUtils.getBundleFile(mcontext,moudleName));
+        if(indexFile.exists()){
+            return RNFilePathUtils.getBundleFile(mcontext,moudleName);
+        }else {
+            return RNFilePathUtils.getBaseBundleFile(mcontext,moudleName);
         }
     }
+
+
+    public interface CopyCompletedCallback{
+        void onCompleted();
+    }
+
+
 }

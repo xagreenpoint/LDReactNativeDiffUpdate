@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
+ * 此模块主要用于从 assets目录下复制
+ * 文件
  * Created by Lynn on 2017/8/20.
  */
 
@@ -49,7 +51,7 @@ public class CopyModule {
                }
            }).start();
         }else {
-            handler.sendEmptyMessage(1);  //通知主线程首次复制已完成
+            handler.sendEmptyMessage(1);  //通知主线程不需要进行复制
         }
     }
 
