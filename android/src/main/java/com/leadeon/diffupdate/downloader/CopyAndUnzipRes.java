@@ -12,23 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 此类主要用于解压上次下载的
- * zip文件
+ * 此类主要用于
  * 复制上次合并的jsbundle文件
+ * 解压上次下载的
+ * zip文件
  * Created by Lynn on 2017/8/17.
  */
 
-public class MergeLastDownedFile {
+public class CopyAndUnzipRes {
 
     private Context context = null;
 
-    private RnVersionManager rnVersionManager=null;
 
-    public MergeLastDownedFile(Context context){
+    public CopyAndUnzipRes(Context context){
         if (this.context == null) {
             this.context = context.getApplicationContext();
         }
-        this.rnVersionManager=new RnVersionManager(this.context);
     }
 
 
@@ -47,14 +46,21 @@ public class MergeLastDownedFile {
                     LogUtils.writeLog("解压和复制bundle总耗时为：  没有可解压和复制的文件");
                 } else {
                     //开启一个线程来进行文件操作
-                    start(listMoudleName,handler);
+                    startnewThread(listMoudleName,handler);
                 }
             }
+        }else {
+            handler.sendEmptyMessage(2);  //表示完成了解压和复制
         }
     }
 
 
-    private void start(final List<String> listMoudleName, final Handler handler) {
+    /**
+     * 开启一个线程来
+     * @param listMoudleName
+     * @param handler
+     */
+    private void startnewThread(final List<String> listMoudleName, final Handler handler) {
         new Thread(new Runnable() {
             @Override
             public void run() {
