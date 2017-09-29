@@ -1,5 +1,7 @@
 package com.yyh.lib.bsdiff;
 
+import com.leadeon.diffupdate.utils.LogUtils;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -23,15 +25,16 @@ public class PatchUtils {
 		System.loadLibrary("ApkPatchLibrary");
 	}
 
-	public synchronized void mergePatch(String oldbundlePath, String newbundlePath, String patchPath){
+	public  int mergePatch(String oldbundlePath, String newbundlePath, String patchPath){
 		File destFile = new File(newbundlePath);
 		destFile.getParentFile().mkdirs();
 		try {
 			destFile.createNewFile();
+			LogUtils.writeLog("创建merage文件夹成功");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		patch(oldbundlePath,newbundlePath,patchPath);
+		return patch(oldbundlePath,newbundlePath,patchPath);
 	}
 
 

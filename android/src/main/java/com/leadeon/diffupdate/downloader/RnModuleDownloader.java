@@ -44,12 +44,14 @@ public class RnModuleDownloader {
     public void startDown(List<RnCheckRes> resList, final Handler handler) {
         if(resList==null||resList.size()==0){
             LogUtils.writeLog("没有可下载的文件    ");
+            handler.sendEmptyMessage(3);
             return;
         }
         this.rnModules=new HashMap<>();
         for(RnCheckRes rnCheckRes:resList){
             this.rnModules.put(rnCheckRes.getModuleName(),false);
         }
+
 
         LogUtils.writeLog("开始执行下载模块的代码");
         FileDownloadQueueSet queueSet = new FileDownloadQueueSet(new FileDownloadSampleListener() {
@@ -70,11 +72,11 @@ public class RnModuleDownloader {
                     LogUtils.writeLog("下载完文件后  进行MD5校验未通过   执行删除操作");
                     FileUtil.deleteAll(RNFilePathUtils.getBundlePatchPath(context, rnCheckRes.getModuleName()));
                 }
-                sendCoplete(rnCheckRes);
+                sendComplete(rnCheckRes);
 
             }
 
-            private void sendCoplete(RnCheckRes rnCheckRes){
+            private void sendComplete(RnCheckRes rnCheckRes){
                 if(rnModules!=null) {
                     rnModules.remove(rnCheckRes.getModuleName());
                     if (rnModules.size() == 0) {
@@ -88,7 +90,7 @@ public class RnModuleDownloader {
                 super.error(task, e);
                 if (rnModules != null) {
                     RnCheckRes rnCheckRes = ((RnCheckRes) task.getTag());
-                    sendCoplete(rnCheckRes);
+                    sendComplete(rnCheckRes);
                 }
             }
         });
@@ -101,7 +103,7 @@ public class RnModuleDownloader {
             }
         }
         queueSet.disableCallbackProgressTimes();     // 由于是队列任务, 这里是我们假设了现在不需要每个任务都回调`FileDownloadListener#progress`, 我们只关系每个任务是否完成, 所以这里这样设置可以很有效的减少ipc.
-        queueSet.setAutoRetryTimes(0);               // 所有任务在下载失败的时候都不进行重试
+        queueSet.setAutoRetryTimes(1);               // 所有任务在下载失败的时候都不进行重试
         queueSet.downloadTogether(tasks);            // 并行执行该任务队列
         queueSet.start();
     }
@@ -112,18 +114,26 @@ public class RnModuleDownloader {
      *
      * @param rnCheckRes
      */
-    private  void unZipPatchAndMerge(RnCheckRes rnCheckRes) {
+    private void unZipPatchAndMerge(RnCheckRes rnCheckRes) {
         String moduleName = rnCheckRes.getModuleName();
         String jsbundleMd5 = rnCheckRes.getJsbundleHash();
         FileUtil.unZipPatch(
                 RNFilePathUtils.getBundleZipFile(this.context, moduleName),
                 RNFilePathUtils.getBundlePatchPath(this.context, moduleName));    //解压到patch文件夹下
         LogUtils.writeLog("解压完成   开始合并");
-        PatchUtils.getInstance().mergePatch(               //合并jsbundle
+
+
+        LogUtils.writeLog("old path  "+RNFilePathUtils.getBaseBundleFile(this.context, moduleName) );
+        LogUtils.writeLog("merage path  "+RNFilePathUtils.getBundleMergeFile(this.context, moduleName) );
+        LogUtils.writeLog("new path  "+RNFilePathUtils.getBundlePatchFile(this.context, moduleName) );
+
+
+       int res= PatchUtils.getInstance().mergePatch(               //合并jsbundle
                 RNFilePathUtils.getBaseBundleFile(this.context, moduleName),
                 RNFilePathUtils.getBundleMergeFile(this.context, moduleName),
                 RNFilePathUtils.getBundlePatchFile(this.context, moduleName)
         );
+        LogUtils.writeLog("合并结果为"+res);
         if (!FileMd5Utils.MD5File(RNFilePathUtils.getBundleMergeFile(this.context, moduleName)).equals(jsbundleMd5)) {
             FileUtil.deleteAll(RNFilePathUtils.getBundlePath(this.context, moduleName));   //删除下载的文件
             LogUtils.writeLog("合并完文件后  进行MD5校验未通过   执行删除操作");
