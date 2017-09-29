@@ -54,6 +54,7 @@
                              @"appKey": [LDRNBundleList appKey],
                              @"appVersion": appVersion,
                              @"rnVersion": [LDRNBundleList rnVersion],
+                             @"platform": @"ios",
                              @"reqBody": body,
                              };
     
