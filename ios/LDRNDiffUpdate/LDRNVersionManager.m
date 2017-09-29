@@ -147,7 +147,6 @@
             NSString *needGoback = info[@"needGoBack"];
             
             if ([needGoback isEqualToString:@"true"]) {
-                [LDPatchFileManager goBackOriginal: bundleName];
                 return ;
             }
             
@@ -159,6 +158,23 @@
         
     } withFailure:^(NSError *error, NSURLResponse *response) {
         
+    }];
+}
+
++ (void) gobackOriginalIfNeed {
+    
+    NSArray *patchs = [[NSUserDefaults standardUserDefaults] objectForKey:[LDRNBundleList rnSaveKey]];
+    
+    [patchs enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull info, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSString *bundleName = info[@"moduleName"];
+        NSString *needGoback = info[@"needGoBack"];
+        
+        if ([needGoback isEqualToString:@"true"]) {
+            
+            [LDPatchFileManager goBackOriginal: bundleName];
+            return ;
+        }
     }];
 }
 

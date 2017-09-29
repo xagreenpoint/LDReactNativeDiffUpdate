@@ -18,5 +18,6 @@ typedef void (^FAILED_CALLBACK)(NSError *error, NSURLResponse *response);
 
 +(void) checkRNBundlesVersion: (SUCCESS_CALLBACK) success withFailure: (FAILED_CALLBACK) failure;
 +(void) updateReactNativeBundles;
++(void) gobackOriginalIfNeed;
 
 @end
