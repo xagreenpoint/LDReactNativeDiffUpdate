@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LDRNDiffUpdate"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "react native hot update."
 
   s.description  = <<-DESC
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.dependency 'SSZipArchive'
 
 
-  s.source_files = 'ios/LDRNDiffUpdate/*.{h,m}', 'ios/LDRNDiffUpdate/bzip/*.{h,c}', 'ios/LDRNDiffUpdate/md5/*.{h,m}'
+  s.source_files = 'ios/LDRNDiffUpdate/*.{h,m}', 'ios/LDRNDiffUpdate/bsdiff/*.{h,c}', 'ios/LDRNDiffUpdate/md5/*.{h,m}'
   s.public_header_files = ['ios/LDRNDiffUpdate/LDRNDiffUpdate.h']
 
   # s.subspec 'Core' do |core|
