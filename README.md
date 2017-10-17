@@ -68,6 +68,30 @@ patchFileName           //补丁bundle入口文件名称
 versionUrl              //版本请求接口地址
 ```
 
+配置信息不应该直接修改`LDRNBundleList.m`源文件，更合理的方式是创建`LDRNBundleList的分类`，当然只需设置需要项:
+
+```objective-c
+@implementation LDRNBundleList (setting)
+
++(NSString *) appKey {
+    return @"11111111";
+}
+
++(NSString *) rnVersion {
+    return @"0.48.3";
+}
+
++(NSDictionary *) originBundles {
+    return @{
+                //首次集成置空
+             };
+}
+
+@end
+```
+
+> 注意首次集成时originBundles设置为空字典，否则在工程中找不到zip文件，会引起程序崩溃。等增加zip文件后再进行配置。
+
 配置好信息后，在自己的需要加载bundle的`viewController`中引入头文件`#import "LDRNDiffUpdate.h"`，然后指定jsBundle文件名即可（每个jsBundle代表一个独立的业务）：
 
 ```OC
