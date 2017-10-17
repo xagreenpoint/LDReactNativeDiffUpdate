@@ -12,7 +12,6 @@
 		F19A25251F4EC4030068F74F /* LDRNVersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F19A24F41F4EC4030068F74F /* LDRNVersionManager.m */; };
 		F19A25261F4EC4030068F74F /* LDRNBundleList.m in Sources */ = {isa = PBXBuildFile; fileRef = F19A24F61F4EC4030068F74F /* LDRNBundleList.m */; };
 		F19A25271F4EC4030068F74F /* LDPatchFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F19A24F71F4EC4030068F74F /* LDPatchFileManager.m */; };
-		F19A25281F4EC4030068F74F /* bspatch.c in Sources */ = {isa = PBXBuildFile; fileRef = F19A24FB1F4EC4030068F74F /* bspatch.c */; };
 		F19A25291F4EC4030068F74F /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F19A25011F4EC4030068F74F /* aescrypt.c */; };
 		F19A252A1F4EC4030068F74F /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = F19A25021F4EC4030068F74F /* aeskey.c */; };
 		F19A252B1F4EC4030068F74F /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = F19A25041F4EC4030068F74F /* aestab.c */; };
@@ -45,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F116A2721F95A4D60062D13C /* bspatch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bspatch.c; sourceTree = "<group>"; };
+		F116A2731F95A4D60062D13C /* bspatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bspatch.h; sourceTree = "<group>"; };
 		F19A24E81F4EC3C80068F74F /* libLDRNDiffUpdate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLDRNDiffUpdate.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F19A24EB1F4EC3C80068F74F /* LDRNDiffUpdate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDRNDiffUpdate.h; sourceTree = "<group>"; };
 		F19A24EC1F4EC3C80068F74F /* LDRNDiffUpdate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LDRNDiffUpdate.m; sourceTree = "<group>"; };
@@ -54,8 +55,6 @@
 		F19A24F71F4EC4030068F74F /* LDPatchFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDPatchFileManager.m; sourceTree = "<group>"; };
 		F19A24F81F4EC4030068F74F /* LDPatchFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDPatchFileManager.h; sourceTree = "<group>"; };
 		F19A24F91F4EC4030068F74F /* LDRNVersionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDRNVersionManager.h; sourceTree = "<group>"; };
-		F19A24FB1F4EC4030068F74F /* bspatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bspatch.c; sourceTree = "<group>"; };
-		F19A24FC1F4EC4030068F74F /* bspatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bspatch.h; sourceTree = "<group>"; };
 		F19A24FF1F4EC4030068F74F /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		F19A25001F4EC4030068F74F /* aes_via_ace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_via_ace.h; sourceTree = "<group>"; };
 		F19A25011F4EC4030068F74F /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
@@ -105,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F116A2711F95A4D60062D13C /* bsdiff */ = {
+			isa = PBXGroup;
+			children = (
+				F116A2721F95A4D60062D13C /* bspatch.c */,
+				F116A2731F95A4D60062D13C /* bspatch.h */,
+			);
+			path = bsdiff;
+			sourceTree = "<group>";
+		};
 		F19A24DF1F4EC3C80068F74F = {
 			isa = PBXGroup;
 			children = (
@@ -124,28 +132,19 @@
 		F19A24EA1F4EC3C80068F74F /* LDRNDiffUpdate */ = {
 			isa = PBXGroup;
 			children = (
+				F116A2711F95A4D60062D13C /* bsdiff */,
 				F19A24F51F4EC4030068F74F /* LDRNBundleList.h */,
 				F19A24F61F4EC4030068F74F /* LDRNBundleList.m */,
 				F19A24F71F4EC4030068F74F /* LDPatchFileManager.m */,
 				F19A24F81F4EC4030068F74F /* LDPatchFileManager.h */,
 				F19A24F91F4EC4030068F74F /* LDRNVersionManager.h */,
 				F19A24F41F4EC4030068F74F /* LDRNVersionManager.m */,
-				F19A24FA1F4EC4030068F74F /* bzip */,
 				F19A24FD1F4EC4030068F74F /* SSZipArchive */,
 				F19A25221F4EC4030068F74F /* md5 */,
 				F19A24EB1F4EC3C80068F74F /* LDRNDiffUpdate.h */,
 				F19A24EC1F4EC3C80068F74F /* LDRNDiffUpdate.m */,
 			);
 			path = LDRNDiffUpdate;
-			sourceTree = "<group>";
-		};
-		F19A24FA1F4EC4030068F74F /* bzip */ = {
-			isa = PBXGroup;
-			children = (
-				F19A24FB1F4EC4030068F74F /* bspatch.c */,
-				F19A24FC1F4EC4030068F74F /* bspatch.h */,
-			);
-			path = bzip;
 			sourceTree = "<group>";
 		};
 		F19A24FD1F4EC4030068F74F /* SSZipArchive */ = {
@@ -277,7 +276,6 @@
 				F19A25331F4EC4030068F74F /* mztools.c in Sources */,
 				F19A25351F4EC4030068F74F /* zip.c in Sources */,
 				F19A25251F4EC4030068F74F /* LDRNVersionManager.m in Sources */,
-				F19A25281F4EC4030068F74F /* bspatch.c in Sources */,
 				F19A25311F4EC4030068F74F /* sha1.c in Sources */,
 				F19A25261F4EC4030068F74F /* LDRNBundleList.m in Sources */,
 				F19A252E1F4EC4030068F74F /* hmac.c in Sources */,
