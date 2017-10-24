@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.leadeon.diffupdate.bean.RnCheckRes;
+import com.leadeon.diffupdate.bean.checkversion.RnCheckRes;
 import com.leadeon.diffupdate.utils.FileMd5Utils;
 import com.leadeon.diffupdate.utils.FileUtil;
 import com.leadeon.diffupdate.utils.LogUtils;
@@ -58,11 +58,7 @@ public class RnModuleDownloader {
             @Override
             protected void completed(BaseDownloadTask task) {
                 super.completed(task);
-            }
 
-            @Override
-            protected void blockComplete(BaseDownloadTask task) {
-                super.blockComplete(task);
                 String path = task.getPath();
                 LogUtils.writeLog("blockComplete 下载完成    本地存储路径为" + path +"   thread: "+Thread.currentThread().getName());
                 RnCheckRes rnCheckRes = ((RnCheckRes) task.getTag());
@@ -73,7 +69,11 @@ public class RnModuleDownloader {
                     FileUtil.deleteAll(RNFilePathUtils.getBundlePatchPath(context, rnCheckRes.getModuleName()));
                 }
                 sendComplete(rnCheckRes);
+            }
 
+            @Override
+            protected void blockComplete(BaseDownloadTask task) {
+                super.blockComplete(task);
             }
 
             private void sendComplete(RnCheckRes rnCheckRes){
@@ -124,18 +124,23 @@ public class RnModuleDownloader {
 
 
         LogUtils.writeLog("old path  "+RNFilePathUtils.getBaseBundleFile(this.context, moduleName) );
-        LogUtils.writeLog("merage path  "+RNFilePathUtils.getBundleMergeFile(this.context, moduleName) );
-        LogUtils.writeLog("new path  "+RNFilePathUtils.getBundlePatchFile(this.context, moduleName) );
+        LogUtils.writeLog("new path  "+RNFilePathUtils.getBundleMergeFile(this.context, moduleName) );
+        LogUtils.writeLog("patch path  "+RNFilePathUtils.getBundlePatchFile(this.context, moduleName) );
 
+        LogUtils.writeLog("patch path  开始创建文件");
 
        int res= PatchUtils.getInstance().mergePatch(               //合并jsbundle
                 RNFilePathUtils.getBaseBundleFile(this.context, moduleName),
                 RNFilePathUtils.getBundleMergeFile(this.context, moduleName),
                 RNFilePathUtils.getBundlePatchFile(this.context, moduleName)
         );
-        LogUtils.writeLog("合并结果为"+res);
-        if (!FileMd5Utils.MD5File(RNFilePathUtils.getBundleMergeFile(this.context, moduleName)).equals(jsbundleMd5)) {
-            FileUtil.deleteAll(RNFilePathUtils.getBundlePath(this.context, moduleName));   //删除下载的文件
+        LogUtils.writeLog("合并结果为     "+res);
+        LogUtils.writeLog("服务器端的MD5  "+jsbundleMd5);
+        String md5=FileMd5Utils.MD5File(RNFilePathUtils.getBundleMergeFile(this.context, moduleName));
+        LogUtils.writeLog("客户端MD5 " +md5);
+
+        if (!md5.equals(jsbundleMd5)) {
+            FileUtil.deleteAll(RNFilePathUtils.getBundleMergeFile(this.context, moduleName));   //删除下载的文件
             LogUtils.writeLog("合并完文件后  进行MD5校验未通过   执行删除操作");
         } else {
             LogUtils.writeLog("合并完文件  并保存版本信息" + JSON.toJSONString(rnCheckRes));
