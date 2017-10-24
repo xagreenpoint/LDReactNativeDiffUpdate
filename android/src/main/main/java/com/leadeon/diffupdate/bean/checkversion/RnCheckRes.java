@@ -1,4 +1,4 @@
-package com.leadeon.diffupdate.bean;
+package com.leadeon.diffupdate.bean.checkversion;
 
 import java.io.Serializable;
 

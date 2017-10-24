@@ -164,7 +164,7 @@ public class FileUtil {
                 ze = (ZipEntry) zList.nextElement();
                 String relativePath = ze.getName();
 
-                if (relativePath.startsWith("index")) {
+                if (relativePath.startsWith("main")) {
                     if (DEBUG) {
                         LogUtils.writeLog("relativePath :  " + relativePath);
                     }
@@ -250,7 +250,7 @@ public class FileUtil {
                 ze = (ZipEntry) zList.nextElement();
                 String relativePath = ze.getName();
                 if (!ze.isDirectory()) {
-                    if (relativePath.endsWith("patch")) {
+                    if (relativePath.endsWith("jsbundle")) {
                         File targetFile = new File(tempDir, relativePath);
 
                         if (!targetFile.getParentFile().exists()) {

@@ -10,13 +10,13 @@ import java.io.File;
 
 public class RNFilePathUtils {
 
-    public static String INDEX_BUNDLE_NAME="index.android.bundle";
-    public static String BASE_BUNDLE_NAME="index.android.bundle";
+    public static String INDEX_BUNDLE_NAME="main.jsbundle";
+    public static String BASE_BUNDLE_NAME="main.jsbundle";
     public static String BASE_BUNDLE_ZIP="base.zip";
 
 
-    public static String MERGE_BUNDLE_NAME="merge.android.bundle";
-    public static String BUNDLE_PATCH_NAME="bundle.patch";
+    public static String MERGE_BUNDLE_NAME="merge.jsbundle";
+    public static String BUNDLE_PATCH_NAME="patch.jsbundle";
     public static String PATCH_ZIP_NAME="patch.zip";
 
 
