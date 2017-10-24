@@ -3,7 +3,7 @@
     package="com.leadeon.diffupdate">
 
     <application >
-
+        <service android:name=".downloader.RnModuleDiffUpdateService"/>
     </application>
 
 </manifest>

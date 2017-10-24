@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Handler;
 
 import com.alibaba.fastjson.JSON;
-import com.leadeon.diffupdate.bean.RnCheckRes;
+import com.leadeon.diffupdate.bean.checkversion.RnCheckRes;
 import com.leadeon.diffupdate.utils.FileUtil;
 import com.leadeon.diffupdate.utils.LogUtils;
 import com.leadeon.diffupdate.utils.RNFilePathUtils;
