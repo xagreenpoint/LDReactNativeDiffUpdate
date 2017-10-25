@@ -62,6 +62,7 @@
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url];
     request.HTTPMethod = @"POST";
+    [request setValue:@"application/Json" forHTTPHeaderField:@"Content-Type"];
     request.HTTPBody = reqData;
     NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -70,7 +71,13 @@
             return ;
         }
         
-        NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        NSError *err = nil;
+        NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error: &err];
+        
+        if (err) {
+            failure(err, response);
+            return ;
+        }
         
         NSError *customError = [NSError errorWithDomain:@"custom.rn.errdomain" code: -3 userInfo:@{NSLocalizedDescriptionKey: @"response data format not well"}];
         if ([LDRNVersionManager validResBody: res]) {
@@ -79,7 +86,7 @@
             return ;
         }
         
-        NSArray *patchs = res[@"resBody"][@"patchs"];
+        NSArray *patchs = res[@"rspBody"][@"patchs"];
         if (patchs == nil) {
             
             failure(customError, response);
