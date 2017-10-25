@@ -101,9 +101,11 @@
         
         NSError *err = nil;
         if (![[NSFileManager defaultManager] moveItemAtPath:tmpSrcFile toPath:tempDestFile error: &err]) {
-            
-            flag = NO;
-            return ;
+
+            if (err.code != 516) {
+                flag = NO;
+                return ;
+            }
         }
     }];
     
@@ -223,7 +225,7 @@
             [SSZipArchive unzipFileAtPath:destPath toDestination: [destPath stringByDeletingLastPathComponent]];
             [[NSFileManager defaultManager] removeItemAtPath: destPath error: nil];
             
-            [LDPatchFileManager mergePatchFile: [response.suggestedFilename stringByDeletingPathExtension]];
+            [LDPatchFileManager mergePatchFile: bundleName];
         }
         
     }];
