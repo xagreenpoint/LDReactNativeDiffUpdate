@@ -1,6 +1,10 @@
 # LDReactNativeDiffUpdate
 React native增量更新，支持多入口多业务。
 
+## 更新（20171031）
+
+后台雏形代码已经上传github:<https://github.com/xagreenpoint/react-native-diff-update-server>
+
 #### 开源的目的
 
 目前业界还没有一款足够适应大部分增量更新场景的方案，要么不支持多业务入口，要么没有开源，要么没有开放后台源码。基于这些需求，我们想通过开源社区的力量，大家一起打造出比较完善易用的增量更新框架，因此，需要大家的参与及支持，为RN的生态系统做点儿小贡献（为了项目的灵活自由发展，我们采用了MIT许可）。
