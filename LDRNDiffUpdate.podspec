@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LDRNDiffUpdate"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "react native hot update."
 
   s.description  = <<-DESC
@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
 
 
   s.source_files = 'ios/LDRNDiffUpdate/*.{h,m}', 'ios/LDRNDiffUpdate/bsdiff/*.{h,c}', 'ios/LDRNDiffUpdate/md5/*.{h,m}'
-  s.public_header_files = ['ios/LDRNDiffUpdate/LDRNDiffUpdate.h']
+  s.public_header_files = ['ios/LDRNDiffUpdate/LDRNDiffUpdate.h', 'ios/LDRNDiffUpdate/LDRNBundleList.h']
 
   # s.subspec 'Core' do |core|
   #   core.source_files = 'ios/LDRNDiffUpdate/*.{h,m}'
