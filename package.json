@@ -1,6 +1,6 @@
 {
   "name": "react-native-diff-update",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React native增量更新，支持多入口多业务。",
   "main": "js/index.js",
   "scripts": {
