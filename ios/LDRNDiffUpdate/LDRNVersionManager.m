@@ -42,7 +42,7 @@
         NSMutableDictionary *bundles = [NSMutableDictionary dictionary];
         [patchs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            [bundles setObject:obj[@"version"] forKey:obj[@"moduleName"]];
+            [bundles setValue:obj[@"version"] forKey:obj[@"moduleName"]];
         }];
         
         body = bundles;
@@ -51,12 +51,14 @@
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     NSDictionary *reqObj = @{
-                             @"appKey": [LDRNBundleList appKey],
-                             @"appVersion": appVersion,
-                             @"rnVersion": [LDRNBundleList rnVersion],
-                             @"platform": @"ios",
-                             @"reqBody": body,
-                             };
+                             @"reqBody": @{
+                                 @"appKey": [LDRNBundleList appKey],
+                                 @"appVersion": appVersion,
+                                 @"rnVersion": [LDRNBundleList rnVersion],
+                                 @"platForm": @"ios",
+                                 @"reqParam": body,
+                             }
+                            };
     
     NSData *reqData = [NSJSONSerialization dataWithJSONObject:reqObj options:kNilOptions error:nil];
     
@@ -86,7 +88,7 @@
             return ;
         }
         
-        NSArray *patchs = res[@"rspBody"][@"patchs"];
+        NSArray *patchs = res[@"rspBody"];
         if (patchs == nil) {
             
             failure(customError, response);
