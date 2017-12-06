@@ -20,9 +20,11 @@ public class LeadeonDiff {
      * @param context
      * @param copyCompletedCallback
      */
-    public static void init(Context context,CopyCompletedCallback copyCompletedCallback)  {
+    public static void init(Context context,String appkey,String rnversion,String url,CopyCompletedCallback copyCompletedCallback)  {
         if(context!=null){
-           new RnModuleDiffUpdateManager(context,copyCompletedCallback).start();
+           new RnModuleDiffUpdateManager(context,appkey,rnversion,url,copyCompletedCallback).start();
+        }else {
+          throw new NullPointerException("context is null ,please check your agent");
         }
     }
 

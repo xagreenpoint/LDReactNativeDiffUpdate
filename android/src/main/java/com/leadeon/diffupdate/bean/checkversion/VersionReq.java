@@ -12,9 +12,9 @@ public class VersionReq implements Serializable {
 
     private String appKey=null;
     private String appVersion=null;
-    private String platform=null;
+    private String platForm=null;
     private String rnVersion=null;
-    private HashMap<String ,String> reqBody=null;
+    private HashMap<String ,String> reqParam=null;
 
 
     public String getAppKey() {
@@ -29,15 +29,16 @@ public class VersionReq implements Serializable {
         return appVersion;
     }
 
-    public String getPlatform() {
-        return platform;
-    }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
+  public String getPlatForm() {
+    return platForm;
+  }
 
-    public void setAppVersion(String appVersion) {
+  public void setPlatForm(String platForm) {
+    this.platForm = platForm;
+  }
+
+  public void setAppVersion(String appVersion) {
         this.appVersion = appVersion;
     }
 
@@ -50,11 +51,11 @@ public class VersionReq implements Serializable {
         this.rnVersion = rnVersion;
     }
 
-    public HashMap<String, String> getReqBody() {
-        return reqBody;
-    }
+  public HashMap<String, String> getReqParam() {
+    return reqParam;
+  }
 
-    public void setReqBody(HashMap<String, String> reqBody) {
-        this.reqBody = reqBody;
-    }
+  public void setReqParam(HashMap<String, String> reqParam) {
+    this.reqParam = reqParam;
+  }
 }

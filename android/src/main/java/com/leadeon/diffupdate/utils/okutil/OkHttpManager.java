@@ -116,7 +116,7 @@ public class OkHttpManager {
                 dataCallBack.requestSuccess(resout);
                }
            });
-            LogUtils.writeLog("相应结果为："+sb.toString());
+            LogUtils.writeLog("相应结果为："+resout);
         }else {
             mHandler.post(new Runnable() {
                 @Override
