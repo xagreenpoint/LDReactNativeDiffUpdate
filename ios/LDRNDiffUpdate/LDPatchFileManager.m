@@ -267,12 +267,14 @@
     if (![LDPatchFileManager moveItems:[patchfile stringByDeletingLastPathComponent] toPath:[destfile stringByDeletingLastPathComponent]]) {
         //error
         [LDPatchFileManager clearFilesForPath: [patchfile stringByDeletingLastPathComponent]];
+        [LDPatchFileManager clearFilesForPath: [destfile stringByDeletingLastPathComponent]];
         return;
     }
     
     if (![LDPatchFileManager validBundle: bundleName withFile:destfile withHashKey:@"jsbundleHash"]) {
         
         [LDPatchFileManager clearFilesForPath: [patchfile stringByDeletingLastPathComponent]];
+        [LDPatchFileManager clearFilesForPath: [destfile stringByDeletingLastPathComponent]];
         return;
     }
 }
