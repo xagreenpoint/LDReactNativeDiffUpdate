@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "LDRNDiffUpdate"
-  s.version      = "1.0.6"
+  s.version      = "1.0.7"
   s.summary      = "react native hot update."
 
   s.description  = <<-DESC

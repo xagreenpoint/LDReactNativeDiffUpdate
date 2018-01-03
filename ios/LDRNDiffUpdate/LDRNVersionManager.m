@@ -89,7 +89,7 @@
         }
         
         NSArray *patchs = res[@"rspBody"];
-        if (patchs == nil) {
+        if (patchs == nil || ![patchs isKindOfClass:[NSArray class]]) {
             
             failure(customError, response);
             return ;
