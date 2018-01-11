@@ -175,7 +175,6 @@
     
     NSArray *patchs = [[NSUserDefaults standardUserDefaults] objectForKey:[LDRNBundleList rnSaveKey]];
     
-    __weak NSMutableArray *indexs = [NSMutableArray array];
     [patchs enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull info, NSUInteger idx, BOOL * _Nonnull stop) {
         
         NSString *bundleName = info[@"moduleName"];
@@ -184,21 +183,13 @@
         if ([needGoback isEqualToString:@"true"]) {
             
             [LDPatchFileManager goBackOriginal: bundleName];
-            [indexs addObject: info];
+            
+            //先进行整体回滚
+            [[NSUserDefaults standardUserDefaults] setObject:@[] forKey: [LDRNBundleList rnSaveKey]];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            return ;
         }
     }];
-    
-    if (indexs.count < 1) {
-        return;
-    }
-    
-    __weak NSMutableArray *tmpPatchs = [NSMutableArray arrayWithObject: patchs];
-    [indexs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [tmpPatchs removeObject: obj];
-    }];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:tmpPatchs forKey: [LDRNBundleList rnSaveKey]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
