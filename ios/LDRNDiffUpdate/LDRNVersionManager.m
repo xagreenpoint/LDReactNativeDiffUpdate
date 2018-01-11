@@ -183,6 +183,10 @@
         if ([needGoback isEqualToString:@"true"]) {
             
             [LDPatchFileManager goBackOriginal: bundleName];
+            
+            //先进行整体回滚
+            [[NSUserDefaults standardUserDefaults] setObject:@[] forKey: [LDRNBundleList rnSaveKey]];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             return ;
         }
     }];

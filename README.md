@@ -157,8 +157,7 @@ resBody: {
 {
     retCode: '000000',      //响应码：000000代表成功，其他代表失败
     retDesc: 'xxx',         //失败原因描述
-    rspBody: {
-        patchs:[   
+    rspBody: [   
             { 
                 "loadType": "ReactNative",                                       //业务类型：ReactNative、HybridApp
                 "zipPath": "https://xx.xx.com/patchzip/LDBizModuleName1.zip",   //下载路径
@@ -173,7 +172,6 @@ resBody: {
 
             ...
           ]
-    }
 }
 
 ```
