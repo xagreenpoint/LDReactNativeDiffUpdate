@@ -3,6 +3,7 @@ package com.leadeon.diffupdate.downloader;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.leadeon.diffupdate.LeadeonDiff;
@@ -131,6 +132,12 @@ public class RnModuleDiffUpdateManager {
    * @param ls
    */
   private void next(List<RnCheckRes> ls) {
+    for (RnCheckRes checkRes:ls){
+      if(!TextUtils.isEmpty(checkRes.getNeedGoBack())&&checkRes.getNeedGoBack().equalsIgnoreCase("true")){
+        new RnVersionManager(this.mContext).getSharedPreference().edit().putString("lastVersion","").commit();
+        break;
+      }
+    }
     new RnModuleDownloader(this.mContext).startDown(ls, this.handler);
   }
 
